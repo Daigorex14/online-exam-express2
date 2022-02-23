@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-var uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
     username:{
         type: String,
@@ -26,7 +27,7 @@ const userSchema = new Schema({
         required:true,
         unique:true
     },
-    stats:{
+    status:{
         type: String,
         required:true
     }
@@ -35,7 +36,7 @@ const userSchema = new Schema({
     timeseries : true,
 });
 
-userSchema.method.hashPassword = async (password) => {
+userSchema.methods.hashPassword = async (password) => {
     return await bcrypt.hashSync(password, 10);
 }
 userSchema.methods.compareUserPassword = async (inputtedPassword, hashedPassword) => {

@@ -6,12 +6,13 @@ exports.register = async (req, res)=> {
 
         let user = new User({
             username: req.body.username,
-            name: req.bodys.name,
+            name: req.body.name,
             lastname: req.body.lastname,
             email: req.body.email,
-            stats: req.body.stats
+            status: req.body.status
         })
         user.password = await user.hashPassword(req.body.password);
+
         let createdUser = await user.save();
         res.status(200).json({
             msg: "New user created",
